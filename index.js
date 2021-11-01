@@ -14,8 +14,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to server side application");
 });
 // env file baki ace
-const uri =
- `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@cluster0.iozoh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri =process.env.MONGO_URI;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
