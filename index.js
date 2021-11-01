@@ -29,7 +29,9 @@ client.connect((err) => {
 const adminCollection = client.db("tourDB").collection("places");
 console.log(`Error : ${err}`);
 console.log(`MongoDb connected for Job task`);
-
+app.get("/",(req,res)=>{
+  res.send("Tourism Server");
+})
 // add place
 app.post("/addPlaces", (req, res) => {
   const newPlace= req.body;
