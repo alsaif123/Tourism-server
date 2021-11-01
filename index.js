@@ -1,34 +1,36 @@
 const express = require("express");
  
 const cors = require("cors");
-const app = express();
-const { MongoClient } = require("mongodb");
  
-app.use(express.json());
-app.use(cors());
-const port = process.env.PORT || 5000;  
+const ObjectId = require("mongodb").ObjectID;
+const MongoClient = require("mongodb").MongoClient;
+const port = process.env.PORT || 5000; 
 
 require("dotenv").config();
-// root app
-app.get("/", (req, res) => {
-  res.send("Welcome to server side application");
-});
- 
-const uri =process.env.MONGO_URI;
 
+// mongo client
+
+const uri = process.env.MONGO_URI;
 
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-// add places
+
+// initialized app
+const app = express();
+
+//middle
+app.use(express.json());
+app.use(cors());
+//  app
 client.connect((err) => {
  
 const adminCollection = client.db("tourDB").collection("places");
 console.log(`Error : ${err}`);
-console.log(`MongoDb connected for Job task`.magenta);
+console.log(`MongoDb connected for Job task`);
 
-// add blog
+// add place
 app.post("/addPlaces", (req, res) => {
   const newPlace= req.body;
   console.log(newPlace);
