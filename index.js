@@ -1,20 +1,22 @@
 const express = require("express");
-const colors = require("colors");
+ 
 const cors = require("cors");
 const app = express();
 const { MongoClient } = require("mongodb");
  
 app.use(express.json());
 app.use(cors());
-const port = process.env.PORT || 5000; //||
+const port = process.env.PORT || 5000;  
 
 require("dotenv").config();
 // root app
 app.get("/", (req, res) => {
   res.send("Welcome to server side application");
 });
-// env file baki ace
+ 
 const uri =process.env.MONGO_URI;
+
+
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -23,7 +25,7 @@ const client = new MongoClient(uri, {
 client.connect((err) => {
  
 const adminCollection = client.db("tourDB").collection("places");
-console.log(`Error : ${err}`.red);
+console.log(`Error : ${err}`);
 console.log(`MongoDb connected for Job task`.magenta);
 
 // add blog
@@ -45,5 +47,5 @@ app.get("/getPlaces", (req, res) => {
 
 // default route
 app.listen(port, () => {
-  console.log(`Server is running on ${port} Successfully`.orange);
+  console.log(`Server is running on ${port} Successfully`);
 });
