@@ -3,16 +3,19 @@ const colors = require("colors");
 const cors = require("cors");
 const app = express();
 const { MongoClient } = require("mongodb");
-const port = 5000;
+ 
 app.use(express.json());
 app.use(cors());
+const port = process.env.PORT || 5000; //||
+
+require("dotenv").config();
 // root app
 app.get("/", (req, res) => {
   res.send("Welcome to server side application");
 });
 // env file baki ace
 const uri =
-  "mongodb+srv://tourDB:tourdb@cluster0.iozoh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+ `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@cluster0.iozoh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -43,5 +46,5 @@ app.get("/getPlaces", (req, res) => {
 
 // default route
 app.listen(port, () => {
-  console.log("Welcome to server side app");
+  console.log(`Server is running on ${port} Successfully`.orange);
 });
